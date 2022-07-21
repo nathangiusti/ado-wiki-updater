@@ -1,0 +1,40 @@
+name: 'Azure DevOps Wiki Updater'
+description: 'Sync changes to markdown files in GitHub Repo with ADO Wiki'
+author: 'Nathan Giusti'
+inputs:
+  files:
+    description: 'Markdown files to update'
+    required: true
+  config:
+    description: 'Location of config file mapping markdown files in repo to wiki'
+    required: true
+  tenant_id:
+    description: 'Microsoft Tenant ID'
+    required: true
+  organization:
+    description: 'Wiki organization id'
+    required: true
+  project:
+    description: 'Wiki project id'
+    required: true
+  wiki_id:
+    description: 'Wiki id'
+    required: true
+  separator:
+    description: 'File name separator'
+    required: false
+    default: ","
+
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.files }}
+    - ${{ inputs.config }}
+    - ${{ inputs.tenant_id }}
+    - ${{ inputs.organization }}
+    - ${{ inputs.project }}
+    - ${{ inputs.wiki_id }}
+    - ${{ inputs.separator }}
+  
